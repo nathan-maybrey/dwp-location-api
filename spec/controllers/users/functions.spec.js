@@ -116,6 +116,14 @@ describe('controllers/users', () => {
         });
     });
 
+    it('should catch error when invalid city provided', async () => {
+      return chai.request(app)
+        .get('/users/INVALID')
+        .then((res) => {
+          expect(res).to.have.status(404);
+        });
+    });
+
     it('should catch error when data retrieval throws error', async () => {
       nock(USER_LOOKUP_ENDPOINT)
         .get('/users')
