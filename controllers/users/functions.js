@@ -77,7 +77,8 @@ const getUsers = async (req, res, next) => {
     // Send JSON response with combined list of users
     res.status(200).json(_.union(usersByCity.data, usersByDistance));
   } catch (error) {
-    req.log.error(error);
+    // Handle errors with middleware
+    next(error);
   }
 };
 

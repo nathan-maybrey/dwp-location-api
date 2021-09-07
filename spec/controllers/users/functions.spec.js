@@ -115,5 +115,21 @@ describe('controllers/users', () => {
           expect(res.body).to.have.lengthOf(12);
         });
     });
+
+    it('should catch error when data retrieval throws error', async () => {
+      nock(USER_LOOKUP_ENDPOINT)
+        .get('/users')
+        .reply(404, []);
+
+      nock(USER_LOOKUP_ENDPOINT)
+        .get('/city/London/users')
+        .reply(200, usersByCityData);
+
+      return chai.request(app)
+        .get('/users/London')
+        .then((res) => {
+          expect(res).to.have.status(500);
+        });
+    });
   });
 });
