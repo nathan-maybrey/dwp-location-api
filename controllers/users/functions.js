@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const { get, AxiosResponse } = require('axios');
 const _ = require('lodash');
 const { getDistance, convertDistance } = require('geolib');
@@ -75,10 +76,10 @@ const getUsers = async (req, res, next) => {
     req.log.info(`Total number of users from ${city} or within ${radius} miles: ${usersByDistance.length + usersByCity.data.length}`);
 
     // Send JSON response with combined list of users
-    res.status(200).json(_.union(usersByCity.data, usersByDistance));
+    return res.status(200).json(_.union(usersByCity.data, usersByDistance));
   } catch (error) {
     // Handle errors with middleware
-    next(error);
+    return next(error);
   }
 };
 

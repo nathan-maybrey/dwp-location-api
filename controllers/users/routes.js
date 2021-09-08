@@ -5,7 +5,8 @@ const functions = require('./functions');
  * @swagger
  * /users/{city}:
  *  get:
- *    summary: Retrieve list of users living in city or within configurable distance (default 50 miles)
+ *    summary: Retrieve list of users living in city or within query param distance
+ *    (default 50 miles)
  *    parameters:
  *      - in: path
  *        name: city
