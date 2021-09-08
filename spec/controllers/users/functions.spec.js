@@ -15,6 +15,10 @@ const { expect } = chai;
 chai.use(chaiHttp);
 
 describe('controllers/users', () => {
+  afterEach(() => {
+    nock.cleanAll();
+  });
+
   describe('getAllUsers', () => {
     it('should be a function', () => {
       expect(typeof userController.getAllUsers).to.equal('function');
@@ -116,13 +120,11 @@ describe('controllers/users', () => {
         });
     });
 
-    it('should catch error when invalid city provided', async () => {
-      return chai.request(app)
-        .get('/users/INVALID')
-        .then((res) => {
-          expect(res).to.have.status(404);
-        });
-    });
+    it('should catch error when invalid city provided', async () => chai.request(app)
+      .get('/users/INVALID')
+      .then((res) => {
+        expect(res).to.have.status(404);
+      }));
 
     it('should catch error when data retrieval throws error', async () => {
       nock(USER_LOOKUP_ENDPOINT)
